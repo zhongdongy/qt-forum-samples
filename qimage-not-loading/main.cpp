@@ -16,6 +16,11 @@ int main(int argc, char *argv[]) {
   QImage img = QImage::fromData(byte_array);
   qDebug() << "Is QImage instance null: " << img.isNull();
 
+
+  QImage img2(":/resources/images/default-background.png");
+  qDebug() << "Is QImage2 instance null: " << img2.isNull();
+
+
   window.show();
   return QApplication::exec();
 }
