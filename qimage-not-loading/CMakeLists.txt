@@ -6,7 +6,15 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/6.2.3/msvc2019_64")
+set(CMAKE_PREFIX_PATH "/home/zhongdongy/Qt/6.2.3/gcc_64")
+
+if (WIN32)
+    option(CMAKE_USE_WIN32_THREADS_INIT "using WIN32 threads" ON)
+    if (MSVC)
+        set(CMAKE_PREFIX_PATH "C:/Qt/6.2.3/msvc2019_64")
+    endif (MSVC)
+endif (WIN32)
+
 
 find_package(Qt6 COMPONENTS
         Core
@@ -14,13 +22,7 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_custom_command(
-        OUTPUT rcc_application.cpp
-        COMMAND "${CMAKE_PREFIX_PATH}/bin/rcc.exe" -g cpp -o rcc_application.cpp ${CMAKE_CURRENT_SOURCE_DIR}/application.qrc
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/application.qrc
-        VERBATIM
-)
-add_executable(qt_test rcc_application.cpp main.cpp)
+add_executable(qt_test application.qrc main.cpp)
 target_link_libraries(qt_test
         Qt6::Core
         Qt6::Gui
